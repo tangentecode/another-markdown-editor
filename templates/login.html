@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+    <h1>AME</h1>
+    <p><i>Another Markdown Editor</i></p>
+    <form method="post">
+        <input type="text" name="username" autofocus autocomplete="off" placeholder="Username">
+        <input type="password" name="password" autocomplete="off" placeholder="Password">
+        <button type="submit" name="login">Login</button>
+        <button type="submit" name="register">Register</button>
+    </form>
+{% endblock %}
+
