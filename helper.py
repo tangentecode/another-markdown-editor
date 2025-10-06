@@ -1,16 +1,15 @@
-from flask import flash, redirect, url_for, session, request
+from flask import redirect, url_for, session, request
 from functools import wraps
 from argon2 import PasswordHasher
+import secrets
 
 
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         # Check if user is logged in
-        if "user_id" not in session:
-            flash("Please login to access this Page")
-            # Redirect to login page, with "next" parameter to return after login
-            return redirect(url_for("login", next=request.url))
+        if "username" not in session:
+            return redirect("/login")
         return f(*args, **kwargs)
 
     return decorated_function
@@ -28,3 +27,6 @@ def verify_hash(pwd_login: str, pwd_hash: str) -> bool:
             return True
     except Exception:
         return False
+
+def gen_secret_key():
+    print(secrets.token_hex(16))
