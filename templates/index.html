@@ -5,7 +5,15 @@
 Index
 {% endblock %}
 
-{% block body %}
-	<p>Test</p>
+{% block body %}	
+    <h1>AME</h1>
+    <p><i>Another Markdown Editor</i></p>
+    <br>
+    <br>
+    <h3>Welcome, {{ username }}!</h3>
+    <form method="post">
+        <button type="submit" name="logout">Logout
+        </button>
+    </form>
 {% endblock %}
 

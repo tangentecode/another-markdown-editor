@@ -2,7 +2,7 @@
 
 
 {% block title %}
-Login
+Register
 {% endblock %}
 
 {% block body %}
@@ -11,10 +11,8 @@ Login
     <form method="post">
         <input type="text" name="username" autofocus autocomplete="off" placeholder="Username">
         <input type="password" name="password" autocomplete="off" placeholder="Password">
-        <button type="submit" name="login">Login
+        <button type="submit" name="login">Register
         </button>
-	<button><a href="/register">Register</a></button>
         <p>{{ msg }}</p>
     </form>
 {% endblock %}
-

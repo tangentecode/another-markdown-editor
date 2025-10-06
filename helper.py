@@ -1,4 +1,4 @@
-from flask import redirect, url_for, session, request
+from flask import redirect, session, request
 from functools import wraps
 from argon2 import PasswordHasher
 import secrets
@@ -28,5 +28,7 @@ def verify_hash(pwd_login: str, pwd_hash: str) -> bool:
     except Exception:
         return False
 
+
 def gen_secret_key():
     print(secrets.token_hex(16))
+
