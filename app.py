@@ -37,14 +37,18 @@ def login():
 def register():
     msg = ""
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        error = register_user(username, password)
-        if error:
-            msg = error
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+        if not username:
+            msg = "Username is required"
+        elif not password:
+            msg = "Password is required"
         else:
-            login_user(username, password)
+            error = register_user(username, password)
+            if error:
+                msg = error
+            else:
+                return redirect("/login")
 
     return render_template("register.html", msg=msg)
 
