@@ -52,6 +52,9 @@ def register():
 
     return render_template("register.html", msg=msg)
 
+@app.route("/editor")
+def editor():
+    return render_template("editor.html")
 
 @app.route("/logout")
 def logout():
@@ -66,4 +69,4 @@ def clear_session():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

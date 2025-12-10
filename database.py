@@ -30,7 +30,7 @@ def init_tables():
     db.commit()
 
 
-def register_user(username: str, password: str) -> str | None:
+def register_user(username: str, password: str):
     db = get_db()
     hashed_password = hash_pwd(password)
     try:

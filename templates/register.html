@@ -6,14 +6,17 @@ Register
 {% endblock %}
 
 {% block body %}
-    <h1>AME</h1>
-    <p><i>Another Markdown Editor</i></p>
-    <form method="post">
-        <input type="text" name="username" autofocus autocomplete="off" placeholder="Username">
-        <input type="password" name="password" autocomplete="off" placeholder="Password">
-        <button type="submit" name="login">Register
-        </button>
-	<button><a href="/login">Login</a></button>
-        <p>{{ msg }}</p>
-    </form>
+<h1>AME</h1>
+<p><i>Another Markdown Editor</i></p>
+<br>
+<h1>Register</h1>
+<form method="post">
+    <input type="text" name="username" autofocus autocomplete="off" placeholder="Username">
+    <input type="password" name="password" autocomplete="off" placeholder="Password">
+    <button type="submit" name="login">Register
+    </button>
+    <br>
+    <a href="/login">Login</a>
+    <p>{{ msg }}</p>
+</form>
 {% endblock %}
