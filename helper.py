@@ -2,7 +2,7 @@ from flask import redirect, session, request
 from functools import wraps
 from argon2 import PasswordHasher
 import secrets
-
+import markdown
 
 def login_required(f):
     @wraps(f)
@@ -32,3 +32,5 @@ def verify_hash(pwd_login: str, pwd_hash: str) -> bool:
 def gen_secret_key():
     print(secrets.token_hex(16))
 
+def to_html(md: str) -> str:
+    return markdown.markdown(md)

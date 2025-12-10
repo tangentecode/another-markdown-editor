@@ -6,7 +6,10 @@ Editor
 {% endblock %}
 
 {% block body %}
+<div>
+    {{ content|safe }}
+</div>
 <form method="post">
-	<input type="text"></input>
+	<input name="line" type="text"></input>
 </form>
 {% endblock %}

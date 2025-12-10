@@ -2,3 +2,4 @@ flask
 sqlite3
 functools
 argon2-cffi
+markdown

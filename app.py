@@ -1,12 +1,13 @@
 from flask import Flask, render_template, redirect, request, session
-from helper import login_required
-from database import init_tables, register_user, login_user
+from helper import login_required, to_html
+from database import init_tables, register_user, login_user, append_line, fetch_content
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "b588233c5c433d7ffdf5416feb6ce40a"
 
 with app.app_context():
     init_tables()
+
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -29,7 +30,6 @@ def login():
             return redirect("/")
         else:
             msg = "Invalid username or password"
-
     return render_template("login.html", msg=msg)
 
 
@@ -52,9 +52,15 @@ def register():
 
     return render_template("register.html", msg=msg)
 
-@app.route("/editor")
+@app.route("/editor", methods=["GET", "POST"])
+@login_required
 def editor():
-    return render_template("editor.html")
+    if request.method == "POST":
+        line: str = request.form.get("line")
+        if line.strip():
+           append_line("filename", line, session["username"])							
+    content = fetch_content("filename", session["username"])
+    return render_template("editor.html", content=to_html(content))
 
 @app.route("/logout")
 def logout():
@@ -66,6 +72,7 @@ def logout():
 def clear_session():
     session.clear()
     return "Session cleared!"
+
 
 
 if __name__ == "__main__":
