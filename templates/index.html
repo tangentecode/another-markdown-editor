@@ -8,11 +8,20 @@ Index
 {% block body %}
 <h1>AME</h1>
 <p><i>Another Markdown Editor</i></p>
-<button><a href="/editor">New File</a></button>
 <h3>Welcome, {{ username }}!</h3>
 <form method="post">
-    <button type="submit" name="logout">Logout
-</button>
+    <input name="filename" type="text" placeholder="Enter Filname..." autofocus>
+	<button type="submit" name="form_name" value="new_file">New File</button>
 </form>
-
+<table>
+{% for file in files %}
+    <tr>
+        <td>{{ file }}</td>
+    </tr>
+{% endfor %}
+</table>  
+<br>
+<form method="post">
+    <button type="submit" name="form_name" value="logout">Logout</button>
+</form>
 {% endblock %}

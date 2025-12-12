@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, session
 from helper import login_required, to_html
-from database import init_tables, register_user, login_user, append_line, fetch_content
+from database import init_tables, register_user, login_user, append_line, fetch_content, fetch_files
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "b588233c5c433d7ffdf5416feb6ce40a"
@@ -8,15 +8,19 @@ app.config["SECRET_KEY"] = "b588233c5c433d7ffdf5416feb6ce40a"
 with app.app_context():
     init_tables()
 
-
-
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
+    username: str = session.get("username")
     if request.method == "POST":
-        return redirect("/logout")
-    return render_template("index.html", username=session.get("username"))
-
+        submittet_form: str = request.form.get("form_name")
+        if submittet_form == "logout":
+            return redirect("/logout")
+        elif submittet_form == "new_file":
+            session["filename"] = request.form.get("filename")
+            return redirect("/editor")
+    files: tuple[str] = fetch_files(username)
+    return render_template("index.html", username=username, files=files)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -31,7 +35,6 @@ def login():
         else:
             msg = "Invalid username or password"
     return render_template("login.html", msg=msg)
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -51,29 +54,28 @@ def register():
                 return redirect("/login")
 
     return render_template("register.html", msg=msg)
-
+		
 @app.route("/editor", methods=["GET", "POST"])
 @login_required
 def editor():
+    filename: str = session.get("filename")
+    username: str = session.get("username")
     if request.method == "POST":
-        line: str = request.form.get("line")
-        if line.strip():
-           append_line("filename", line, session["username"])							
-    content = fetch_content("filename", session["username"])
-    return render_template("editor.html", content=to_html(content))
-
+        line = request.form.get("line", "").strip()
+        if line:
+            append_line(filename, line, username)
+    content = fetch_content(filename, username)
+    return render_template("editor.html", filename=filename, content=to_html(content))
+    
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/login")
 
-
 @app.route("/clear-session")
 def clear_session():
     session.clear()
     return "Session cleared!"
-
-
 
 if __name__ == "__main__":
     app.run()

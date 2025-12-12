@@ -51,7 +51,18 @@ def fetch_content(filename: str, username: str) -> str:
     if row:
         return row["content"]
     return ""
-    
+
+def fetch_files(username: str) -> tuple[str]:
+    db = get_db()
+    cursor = db.execute(
+        "SELECT filename FROM files WHERE username = ?",
+        (username,)
+    )
+    rows = cursor.fetchall()
+    files: tuple[str] = tuple(r["filename"] for r in rows)
+    return files
+
+
 
 def append_line(filename: str, line: str, username: str):
     db = get_db()

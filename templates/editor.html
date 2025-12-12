@@ -1,15 +1,19 @@
 {% extends "layout.html" %}
 
-
 {% block title %}
-Editor
+{{ filename }}
 {% endblock %}
 
 {% block body %}
+<h1>{{ filename }}</h1>
+
 <div>
-    {{ content|safe }}
+    {{ content | safe }}
 </div>
+
 <form method="post">
-	<input name="line" type="text"></input>
+    <input name="line" type="text" placeholder="Enter line..." autofocus>
 </form>
+
+<a href="/">Close File</a>
 {% endblock %}
