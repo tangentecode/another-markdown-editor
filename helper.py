@@ -33,4 +33,6 @@ def gen_secret_key():
     print(secrets.token_hex(16))
 
 def to_html(md: str) -> str:
-    return markdown.markdown(md)
+    html = markdown.markdown(md)
+    html.replace("\n","<br>")
+    return html

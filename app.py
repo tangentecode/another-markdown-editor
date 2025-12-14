@@ -61,11 +61,13 @@ def editor():
     filename: str = session.get("filename")
     username: str = session.get("username")
     if request.method == "POST":
-        line = request.form.get("line", "").strip()
+        line = request.form.get("line")
         if line:
+            line += "\n"
             append_line(filename, line, username)
-    content = fetch_content(filename, username)
-    return render_template("editor.html", filename=filename, content=to_html(content))
+    md_content = fetch_content(filename, username)
+    html_content = to_html(md_content)
+    return render_template("editor.html", filename=filename, content=html_content)
     
 @app.route("/logout")
 def logout():

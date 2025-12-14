@@ -1,0 +1,4 @@
+- html view code
+- export (pdf...)
+- file opening 
+- delete
