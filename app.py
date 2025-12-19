@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, session, url_for
-from helper import login_required, to_html, test_html
+from helper import login_required, to_html
 from database import init_tables, register_user, login_user, append_line, fetch_content, fetch_files
 
 app = Flask(__name__)
@@ -70,7 +70,7 @@ def editor(filename: str):
             append_line(filename, line + "\n", username)
 
     md_content = fetch_content(filename, username)
-    html_content = test_html(md_content)
+    html_content = to_html(md_content)
     return render_template("editor.html", filename=filename, content=html_content)
     
 @app.route("/logout")
