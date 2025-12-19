@@ -1,4 +1,4 @@
 flask
 argon2-cffi
-markdown
+markdown2
 gunicorn
