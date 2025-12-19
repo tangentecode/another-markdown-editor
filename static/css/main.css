@@ -1,0 +1,8 @@
+/* main.css */
+@import "base.css";
+@import "layout.css";
+@import "components.css";
+
+@import "pages/login.css";
+@import "pages/editor.css";
+@import "pages/files.css";

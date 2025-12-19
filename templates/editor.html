@@ -6,25 +6,18 @@
 
 {% block body %}
 <h1>{{ filename }}</h1>
-
 <div>
-    {{ content | safe }}
+  {{ content | safe }}
 </div>
 <form id="editor-form" method="POST">
-    <textarea id="line" name="line" rows="5" cols="50"></textarea>
-    <button type="submit" style="display:none"></button>
+    <textarea
+  	    id="line"
+        name="line"
+        placeholder="Start Typing"
+        autofocus
+    ></textarea>
+		<button type="submit" hidden></button>
 </form>
-
-<script>
-const textarea = document.getElementById("line");
-const form = document.getElementById("editor-form");
-
-textarea.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        e.preventDefault(); // Prevent newline
-        form.submit();      // Submit the form
-    }
-});
-</script>
 <a href="/">Close File</a>
+<script src="../static/js/submit_w_enter.js"></script>
 {% endblock %}

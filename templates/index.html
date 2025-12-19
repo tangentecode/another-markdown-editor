@@ -1,41 +1,25 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Index
+Start
 {% endblock %}
 
 {% block body %}
-<div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="file-tree">
-        <div class="tree-header">Files</div>
+<h1>AME</h1>
+<p><i>Another Markdown Editor</i></p>
+<h3>Welcome, {{ username }}!</h3>
+<form method="post">
+    <input name="filename" type="text" placeholder="Enter filename..." autofocus>
+    <button type="submit" name="form_name" value="new_file">New File</button>
+</form>
 
-        {% for file in files %}
-            <a class="tree-item" href="/editor/{{ file }}">
-                <span class="md-icon">MD</span>
-                <span class="tree-name">{{ file }}</span>
-            </a>
-        {% endfor %}
+{% for file in files %}
+<a href="/editor/{{ file }}">{{ file }}</a><br>
+{% endfor %}
 
-        <form method="post" style="margin-top:auto; padding:14px;">
-            <button type="submit" name="form_name" value="logout">Logout</button>
-        </form>
-    </aside>
+<form method="post">
+    <button type="submit" name="form_name" value="logout">Logout</button>
+</form>
 
-    <!-- MAIN CONTENT -->
-    <main class="main">
-        <div class="card">
-            <h1>AME</h1>
-            <p><i>Another Markdown Editor</i></p>
-            <h3>Welcome, {{ username }}!</h3>
-
-            <form method="post">
-                <input name="filename" type="text" placeholder="Enter filename..." autofocus>
-                <button type="submit" name="form_name" value="new_file">New File</button>
-            </form>
-        </div>
-    </main>
-
-</div>
-{% endblock %} %}
+{% endblock %}
