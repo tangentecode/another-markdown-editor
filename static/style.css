@@ -33,40 +33,37 @@ p {
     font-size: 1.1rem;
 }
 
+/* FORM LAYOUT */
 form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
     margin-bottom: 20px;
+    width: 100%;
+		max-width: 360px;
 }
 
-input[type="text"], td {
-    padding: 10px 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
-    flex: 1;
-    min-width: 200px;
-    transition: all 0.2s ease;
-}
-
+/* INPUT FIELDS */
+input[type="text"],
 input[type="password"] {
-    padding: 10px 15px;
+    padding: 12px 15px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 1rem;
-    flex: 1;
-    min-width: 200px;
+    width: 100%;
     transition: all 0.2s ease;
 }
-input[type="text"]:focus {
+
+input[type="text"]:focus,
+input[type="password"]:focus {
     outline: none;
     border-color: #2563eb;
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
+/* BUTTON */
 button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     background: #2563eb;
     color: white;
     border: none;
@@ -74,6 +71,7 @@ button {
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 1rem;
+    width: 100%;
 }
 
 button:hover {
@@ -81,6 +79,10 @@ button:hover {
     transform: translateY(-1px);
 }
 
+.files {
+    
+}
+/* CARD / CONTAINER */
 div {
     background: #ffffff;
     padding: 20px;
@@ -91,8 +93,9 @@ div {
     margin-bottom: 20px;
 }
 
+/* MOBILE FRIENDLY */
 @media (max-width: 600px) {
-    form {
-        flex-direction: column;
+    body {
+        padding: 20px 10px;
     }
 }

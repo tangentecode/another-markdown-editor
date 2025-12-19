@@ -9,11 +9,22 @@
 
 <div>
     {{ content | safe }}
-
-<form method="post">
-    <input name="line" type="text" placeholder="Enter line..." autofocus>
-</form>
 </div>
+<form id="editor-form" method="POST">
+    <textarea id="line" name="line" rows="5" cols="50"></textarea>
+    <button type="submit" style="display:none"></button>
+</form>
 
+<script>
+const textarea = document.getElementById("line");
+const form = document.getElementById("editor-form");
+
+textarea.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault(); // Prevent newline
+        form.submit();      // Submit the form
+    }
+});
+</script>
 <a href="/">Close File</a>
 {% endblock %}

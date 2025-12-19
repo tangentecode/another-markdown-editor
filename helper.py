@@ -36,3 +36,8 @@ def to_html(md: str) -> str:
     html = markdown.markdown(md)
     html.replace("\n","<br>")
     return html
+
+import markdown2
+
+def test_html(md_content):
+    return markdown2.markdown(md_content, extras=["break-on-newline"])

@@ -15,9 +15,7 @@ Index
 </form>
 <table>
 {% for file in files %}
-    <tr>
-        <td>{{ file }}</td>
-    </tr>
+<a class="files" href="/editor/{{ file }}">{{ file }}</a>
 {% endfor %}
 </table>  
 <br>

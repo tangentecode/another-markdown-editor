@@ -1,5 +1,5 @@
-from flask import Flask, render_template, redirect, request, session
-from helper import login_required, to_html
+from flask import Flask, render_template, redirect, request, session, url_for
+from helper import login_required, to_html, test_html
 from database import init_tables, register_user, login_user, append_line, fetch_content, fetch_files
 
 app = Flask(__name__)
@@ -12,13 +12,17 @@ with app.app_context():
 @login_required
 def index():
     username: str = session.get("username")
+
     if request.method == "POST":
         submittet_form: str = request.form.get("form_name")
+
         if submittet_form == "logout":
             return redirect("/logout")
+
         elif submittet_form == "new_file":
-            session["filename"] = request.form.get("filename")
-            return redirect("/editor")
+            filename = request.form.get("filename")
+            return redirect(url_for("editor", filename=filename))
+
     files: tuple[str] = fetch_files(username)
     return render_template("index.html", username=username, files=files)
 
@@ -26,8 +30,8 @@ def index():
 def login():
     msg = ""
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+        username: str = request.form.get("username")
+        password: str = request.form.get("password")
 
         if login_user(username, password):
             session["username"] = username
@@ -40,8 +44,8 @@ def login():
 def register():
     msg = ""
     if request.method == "POST":
-        username = request.form.get("username", "").strip()
-        password = request.form.get("password", "").strip()
+        username: str = request.form.get("username", "").strip()
+        password: str = request.form.get("password", "").strip()
         if not username:
             msg = "Username is required"
         elif not password:
@@ -55,18 +59,18 @@ def register():
 
     return render_template("register.html", msg=msg)
 		
-@app.route("/editor", methods=["GET", "POST"])
+@app.route("/editor/<filename>", methods=["GET", "POST"])
 @login_required
-def editor():
-    filename: str = session.get("filename")
+def editor(filename: str):
     username: str = session.get("username")
+
     if request.method == "POST":
         line = request.form.get("line")
         if line:
-            line += "\n"
-            append_line(filename, line, username)
+            append_line(filename, line + "\n", username)
+
     md_content = fetch_content(filename, username)
-    html_content = to_html(md_content)
+    html_content = test_html(md_content)
     return render_template("editor.html", filename=filename, content=html_content)
     
 @app.route("/logout")
