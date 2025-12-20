@@ -15,7 +15,9 @@ Start
 </form>
 
 {% for file in files %}
-<a href="/editor/{{ file }}">{{ file }}</a><br>
+<a href="/editor/{{ file }}">{{ file }}</a><form method="post">
+    <button type="submit" name="form_name" value="{{ file }}">Delete</button>
+</form><br>
 {% endfor %}
 
 <form method="post">

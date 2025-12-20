@@ -1,4 +1,2 @@
-- html view code
-- export (pdf...)
-- file opening 
-- delete
+- export (pdf, html, md)
+- file delete

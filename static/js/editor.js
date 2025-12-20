@@ -7,3 +7,10 @@ textarea.addEventListener("keydown", function (e) {
         form.submit();
     }
 });
+
+textarea.addEventListener("keydown", function (e) {
+    if (e.key === "Backspace" && textarea.value.length === 0) {
+        e.preventDefault();
+        document.getElementById("backspace-form").submit();
+    }
+});

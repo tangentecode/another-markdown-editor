@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, session, url_for
 from helper import login_required, to_html
-from database import init_tables, register_user, login_user, append_line, fetch_content, fetch_files
+from database import *
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "b588233c5c433d7ffdf5416feb6ce40a"
@@ -12,7 +12,7 @@ with app.app_context():
 @login_required
 def index():
     username: str = session.get("username")
-
+    files: tuple[str] = fetch_files(username)
     if request.method == "POST":
         submittet_form: str = request.form.get("form_name")
 
@@ -22,6 +22,10 @@ def index():
         elif submittet_form == "new_file":
             filename = request.form.get("filename")
             return redirect(url_for("editor", filename=filename))
+						
+        elif submittet_form in files:
+             delete_file(submittet_form, username)
+            
 
     files: tuple[str] = fetch_files(username)
     return render_template("index.html", username=username, files=files)
@@ -65,9 +69,13 @@ def editor(filename: str):
     username: str = session.get("username")
 
     if request.method == "POST":
-        line = request.form.get("line")
-        if line:
-            append_line(filename, line + "\n", username)
+        action = request.form.get("action")
+        if action == "append":
+            line = request.form.get("line")
+            if line:
+                append_line(filename, line + "\n", username)
+        elif action == "backspace":
+            delete_char(filename, username)
 
     md_content = fetch_content(filename, username)
     html_content = to_html(md_content)
@@ -84,5 +92,5 @@ def clear_session():
     return "Session cleared!"
 
 if __name__ == "__main__":
-    #app.run()
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run()
+    #app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

@@ -67,7 +67,7 @@ def fetch_files(username: str) -> tuple[str]:
 def append_line(filename: str, line: str, username: str):
     db = get_db()
 
-    # Falls Datei nicht existiert → erzeugen
+
     db.execute(
         """
         INSERT OR IGNORE INTO files (username, filename, content)
@@ -76,7 +76,6 @@ def append_line(filename: str, line: str, username: str):
         (username, filename),
     )
 
-    # Inhalt anhängen
     db.execute(
         """
         UPDATE files
@@ -87,6 +86,39 @@ def append_line(filename: str, line: str, username: str):
     )
 
     db.commit()
+
+def delete_char(filename: str, username: str):
+    db = get_db()
+
+    cur = db.execute(
+        "SELECT content FROM files WHERE filename = ? AND username = ?",
+        (filename, username)
+    )
+    row = cur.fetchone()
+    if not row:
+        return
+
+    content = row["content"]
+    if len(content) == 0:
+        return
+
+    content = content[:-1]  # remove last character
+
+    db.execute(
+        "UPDATE files SET content = ? WHERE filename = ? AND username = ?",
+        (content, filename, username)
+    )
+    db.commit()
+		
+def delete_file(filename: str, username: str):
+    db = get_db()
+    db.execute(
+        """
+        DELETE FROM files
+        WHERE filename = ? AND username = ?
+        """,
+        (filename, username),
+    )
 
 
 def register_user(username: str, password: str):

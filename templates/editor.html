@@ -10,14 +10,13 @@
   {{ content | safe }}
 </div>
 <form id="editor-form" method="POST">
-    <textarea
-  	    id="line"
-        name="line"
-        placeholder="Start Typing"
-        autofocus
-    ></textarea>
-		<button type="submit" hidden></button>
+    <input type="hidden" name="action" value="append">
+    <textarea autofocus id="line" name="line" rows="5" cols="50"></textarea>
+    <button type="submit" style="display:none"></button>
+</form>
+<form id="backspace-form" method="POST">
+    <input type="hidden" name="action" value="backspace">
 </form>
 <a href="/">Close File</a>
-<script src="../static/js/submit_w_enter.js"></script>
+<script src="../static/js/editor.js"></script>
 {% endblock %}
