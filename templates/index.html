@@ -13,7 +13,7 @@ Start
     <input name="filename" type="text" placeholder="Enter filename..." autofocus>
     <button type="submit" name="form_name" value="new_file">New File</button>
 </form>
-
+<br>
 {% for file in files %}
 <a href="/editor/{{ file }}">{{ file }}</a><form method="post">
     <button type="submit" name="form_name" value="{{ file }}">Delete</button>

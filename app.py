@@ -8,6 +8,7 @@ app.config["SECRET_KEY"] = "b588233c5c433d7ffdf5416feb6ce40a"
 with app.app_context():
     init_tables()
 
+
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
@@ -22,13 +23,13 @@ def index():
         elif submittet_form == "new_file":
             filename = request.form.get("filename")
             return redirect(url_for("editor", filename=filename))
-						
+
         elif submittet_form in files:
-             delete_file(submittet_form, username)
-            
+            delete_file(submittet_form, username)
 
     files: tuple[str] = fetch_files(username)
     return render_template("index.html", username=username, files=files)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -43,6 +44,7 @@ def login():
         else:
             msg = "Invalid username or password"
     return render_template("login.html", msg=msg)
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -62,7 +64,8 @@ def register():
                 return redirect("/login")
 
     return render_template("register.html", msg=msg)
-		
+
+
 @app.route("/editor/<filename>", methods=["GET", "POST"])
 @login_required
 def editor(filename: str):
@@ -80,17 +83,21 @@ def editor(filename: str):
     md_content = fetch_content(filename, username)
     html_content = to_html(md_content)
     return render_template("editor.html", filename=filename, content=html_content)
-    
+
+
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/login")
+
 
 @app.route("/clear-session")
 def clear_session():
     session.clear()
     return "Session cleared!"
 
+
 if __name__ == "__main__":
-    app.run()
-    #app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    # app.run()
+    app.run(debug=True)
+    # app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

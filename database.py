@@ -45,28 +45,24 @@ def fetch_content(filename: str, username: str) -> str:
     db = get_db()
     cursor = db.execute(
         "SELECT content FROM files WHERE username = ? AND filename = ?",
-        (username, filename)
+        (username, filename),
     )
     row = cursor.fetchone()
     if row:
         return row["content"]
     return ""
 
+
 def fetch_files(username: str) -> tuple[str]:
     db = get_db()
-    cursor = db.execute(
-        "SELECT filename FROM files WHERE username = ?",
-        (username,)
-    )
+    cursor = db.execute("SELECT filename FROM files WHERE username = ?", (username,))
     rows = cursor.fetchall()
     files: tuple[str] = tuple(r["filename"] for r in rows)
     return files
 
 
-
 def append_line(filename: str, line: str, username: str):
     db = get_db()
-
 
     db.execute(
         """
@@ -87,12 +83,13 @@ def append_line(filename: str, line: str, username: str):
 
     db.commit()
 
+
 def delete_char(filename: str, username: str):
     db = get_db()
 
     cur = db.execute(
         "SELECT content FROM files WHERE filename = ? AND username = ?",
-        (filename, username)
+        (filename, username),
     )
     row = cur.fetchone()
     if not row:
@@ -106,10 +103,11 @@ def delete_char(filename: str, username: str):
 
     db.execute(
         "UPDATE files SET content = ? WHERE filename = ? AND username = ?",
-        (content, filename, username)
+        (content, filename, username),
     )
     db.commit()
-		
+
+
 def delete_file(filename: str, username: str):
     db = get_db()
     db.execute(
@@ -119,6 +117,7 @@ def delete_file(filename: str, username: str):
         """,
         (filename, username),
     )
+    db.commit()
 
 
 def register_user(username: str, password: str):
@@ -137,11 +136,9 @@ def register_user(username: str, password: str):
 
 def login_user(username: str, password: str) -> bool:
     db = get_db()
-    cursor = db.execute(
-        "SELECT password FROM users WHERE username = ?",
-        (username,)
-    )
+    cursor = db.execute("SELECT password FROM users WHERE username = ?", (username,))
     row = cursor.fetchone()
     if row is None:
         return False
     return verify_hash(password, row["password"])
+
