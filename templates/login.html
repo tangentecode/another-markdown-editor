@@ -5,14 +5,15 @@
 Login
 {% endblock %}
 
-{% block body %}
+{% block body %}	
 <h1>AME</h1>
 <p><i>Another Markdown Editor</i></p>
-<form method="post">
+<form method="post" class="container">
     <input type="text" name="username" autofocus autocomplete="off" placeholder="Username">
     <input type="password" name="password" autocomplete="off" placeholder="Password">
     <button type="submit" name="login">Login</button>
     <a href="/register">Register</a>
+    <br>
     <p>{{ msg }}</p>
 </form>
 {% endblock %}

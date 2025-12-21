@@ -1,18 +1,23 @@
-/* base.css */
-* {
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Segoe UI", system-ui, sans-serif;
-  background: #f5f7fa;
-  color: #333;
+:root {
+  --color-bg: #f9fafb;
+  --color-text: #222;
+  --color-primary: #2563eb;
+  --color-border: #d1d5db;
+  --font-base: "Segoe UI", Arial, sans-serif;
+  --radius: 5px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+body {
+  font-family: var(--font-base);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
 }
 
