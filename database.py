@@ -4,6 +4,10 @@ import sqlite3
 
 
 def get_db():
+    """
+    Connects to database;
+    Returns sqlite3 Row object
+    """
     if "db" not in g:
         g.db = sqlite3.connect("database.db")
         g.db.row_factory = sqlite3.Row
@@ -11,12 +15,18 @@ def get_db():
 
 
 def close_db(e=None):
+    """
+    Closes conenction with database
+    """
     db = g.pop("db", None)
     if db is not None:
         db.close()
 
 
 def init_tables():
+    """
+    Initializes all essential tables
+    """
     db = get_db()
     db.execute(
         """
@@ -42,6 +52,11 @@ def init_tables():
 
 
 def fetch_content(filename: str, username: str) -> str:
+    """
+    Returns content of a,
+    by filename and username,
+    specified file
+    """
     db = get_db()
     cursor = db.execute(
         "SELECT content FROM files WHERE username = ? AND filename = ?",
@@ -54,6 +69,10 @@ def fetch_content(filename: str, username: str) -> str:
 
 
 def fetch_files(username: str) -> tuple[str]:
+    """
+    Fetches filenames for all files
+    from a certain user
+    """
     db = get_db()
     cursor = db.execute("SELECT filename FROM files WHERE username = ?", (username,))
     rows = cursor.fetchall()
@@ -62,6 +81,10 @@ def fetch_files(username: str) -> tuple[str]:
 
 
 def append_line(filename: str, line: str, username: str):
+    """
+    Append/Updates a specific
+
+    """
     db = get_db()
 
     db.execute(
@@ -141,4 +164,3 @@ def login_user(username: str, password: str) -> bool:
     if row is None:
         return False
     return verify_hash(password, row["password"])
-

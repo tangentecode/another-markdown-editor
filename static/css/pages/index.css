@@ -1,0 +1,13 @@
+.file-tree {
+}
+
+.file-tree-item {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.logout {
+	margin-top: 10px;
+}
+

@@ -9,19 +9,25 @@ Start
 <h1>AME</h1>
 <p><i>Another Markdown Editor</i></p>
 <h3>Welcome, {{ username }}!</h3>
-<form method="post">
-    <input name="filename" type="text" placeholder="Enter filename..." autofocus>
-    <button type="submit" name="form_name" value="new_file">New File</button>
-</form>
-<br>
-{% for file in files %}
-<a href="/editor/{{ file }}">{{ file }}</a><form method="post">
-    <button type="submit" name="form_name" value="{{ file }}">Delete</button>
-</form><br>
-{% endfor %}
 
-<form method="post">
-    <button type="submit" name="form_name" value="logout">Logout</button>
+<div class="file-tree">	
+	<form method="post">
+    		<input name="filename" type="text" placeholder="Enter filename..." autofocus>
+    		<button type="submit" name="action" value="new_file">New File</button>
+	</form>
+	{% for file in files %}
+	<div class="file-tree-item">	
+
+		<a href="/editor/{{ file }}">{{ file }}</a>
+		<form method="post">
+    			<button type="submit" name="action" value="{{ file }}">Delete</button>
+		</form>
+	</div>
+	{% endfor %}
+</div>
+
+<form method="post" class="logout">
+    <button type="submit" name="action" value="logout">Logout</button>
 </form>
 
 {% endblock %}

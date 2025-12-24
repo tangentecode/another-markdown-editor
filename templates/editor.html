@@ -6,17 +6,18 @@
 
 {% block body %}
 <h1>{{ filename }}</h1>
-<div>
+<div class="editor">
   {{ content | safe }}
-</div>
-<form id="editor-form" method="POST">
+<form id="editor-form" method="POST" class="editor">
     <input type="hidden" name="action" value="append">
-    <textarea autofocus id="line" name="line" rows="1" cols="50"></textarea>
+    <textarea autofocus id="line" name="line"></textarea>
     <button type="submit" style="display:none"></button>
 </form>
-<form id="backspace-form" method="POST">
+<form id="backspace-form" method="POST" class="editor">
     <input type="hidden" name="action" value="backspace">
 </form>
+
+</div>
 <a href="/">Close File</a>
 <script src="../static/js/editor.js"></script>
 {% endblock %}

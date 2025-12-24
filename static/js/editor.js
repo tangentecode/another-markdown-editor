@@ -14,3 +14,11 @@ textarea.addEventListener("keydown", function (e) {
         document.getElementById("backspace-form").submit();
     }
 });
+
+
+textarea.addEventListener("input", () => {
+  textarea.style.height = "auto";
+  textarea.style.height = textarea.scrollHeight + "px";
+});
+
+

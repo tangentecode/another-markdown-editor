@@ -8,12 +8,12 @@ Login
 {% block body %}	
 <h1>AME</h1>
 <p><i>Another Markdown Editor</i></p>
-<form method="post" class="container">
+	
+<form method="post" class="login-form">
     <input type="text" name="username" autofocus autocomplete="off" placeholder="Username">
     <input type="password" name="password" autocomplete="off" placeholder="Password">
     <button type="submit" name="login">Login</button>
-    <a href="/register">Register</a>
-    <br>
     <p>{{ msg }}</p>
 </form>
+<a href="/register">Register</a>
 {% endblock %}

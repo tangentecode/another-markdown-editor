@@ -1,4 +1,4 @@
 - export (pdf, html, md)
-- file delete
 - offline available
 - tauri (cross-plattform)
+- backup (to google drive etc.)
