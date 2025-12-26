@@ -6,9 +6,9 @@
 }
 
 :root {
-  --color-bg: #f9fafb;
-  --color-text: #222;
-  --color-primary: #2563eb;
+  --color-bg: #222;
+  --color-text: #f9fafb;
+  --color-primary: #10295e;
   --color-border: #d1d5db;
   --font-base: "Segoe UI", Arial, sans-serif;
   --radius: 5px;

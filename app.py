@@ -114,10 +114,10 @@ if __name__ == "__main__":
     # IMPORTANT
 
     # 1. Code App (iOS)
-    # app.run()
+    app.run()
 
     # 2. PC
-    app.run(debug=True)
+    # app.run(debug=True)
 
     # 3. Deployment (render.com)
     # app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
